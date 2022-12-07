@@ -1,4 +1,5 @@
 const startBtn = document.querySelector('#startGame');
+const gameResultDiv = document.getElementById('gameResult');
 const startDiv = document.querySelector('#startDiv');
 const gameDiv = document.querySelector('#gameDiv');
 const choicesDiv = document.getElementsByClassName('choicesDiv');
@@ -11,6 +12,7 @@ let computerS = computerScore.textContent;
 gameDiv.style.display = 'none';
 let gameStarted = false;
 let roundStatus = false;
+gameResultDiv.style.display = "none";
 
 
 startBtn.addEventListener('click', () => {
@@ -79,6 +81,15 @@ const startGameRound = (choice) => {
         setTimeout(resetChoices, 1000);
 
         if (playerScore.textContent == 3 || computerScore.textContent == 3) {
+            if (playerScore.textContent == 3) {
+                gameResultDiv.classList.remove('text-[red]');
+                gameResultDiv.classList.add('text-[green]');
+                gameResultDiv.textContent = "You Won !!";
+            } else {
+                gameResultDiv.classList.add('text-[red]');
+                gameResultDiv.classList.remove('text-[green]');
+                gameResultDiv.textContent = "Computer Won !!";
+            }
             playerScore.textContent = 0;
             computerScore.textContent = 0;
             playerS = playerScore.textContent;
@@ -86,6 +97,7 @@ const startGameRound = (choice) => {
             gameDiv.style.display = "none";
             startDiv.style.display = "flex";
             startBtn.textContent = "Play Again";
+            gameResultDiv.style.display = "flex";
         }
     }
 }
